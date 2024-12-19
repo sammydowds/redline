@@ -12,6 +12,9 @@ import {
   UndoRedo,
   BoldItalicUnderlineToggles,
   BlockTypeSelect,
+  linkDialogPlugin,
+  linkPlugin,
+  CreateLink,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 
@@ -31,7 +34,7 @@ async function imageUploadHandler(image: File) {
 function App() {
   return (
     <MDXEditor
-      markdown="hello world"
+      markdown="hello world [world](https://virtuoso.dev/)"
       plugins={[
         headingsPlugin(),
         markdownShortcutPlugin(),
@@ -39,6 +42,8 @@ function App() {
         imagePlugin({
           imageUploadHandler,
         }),
+        linkDialogPlugin(),
+        linkPlugin(),
         listsPlugin(),
         quotePlugin(),
         thematicBreakPlugin(),
@@ -48,6 +53,7 @@ function App() {
               <UndoRedo />
               <BoldItalicUnderlineToggles />
               <BlockTypeSelect />
+              <CreateLink />
               <InsertImage />
             </>
           ),

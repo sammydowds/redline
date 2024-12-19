@@ -15,6 +15,7 @@ import {
   linkDialogPlugin,
   linkPlugin,
   CreateLink,
+  InsertTable,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 
@@ -47,6 +48,7 @@ function App() {
         listsPlugin(),
         quotePlugin(),
         thematicBreakPlugin(),
+        tablePlugin(),
         toolbarPlugin({
           toolbarContents: () => (
             <>
@@ -54,6 +56,7 @@ function App() {
               <BoldItalicUnderlineToggles />
               <BlockTypeSelect />
               <CreateLink />
+              <InsertTable />
               <InsertImage />
             </>
           ),

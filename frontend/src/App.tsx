@@ -33,9 +33,20 @@ async function imageUploadHandler(image: File) {
 }
 
 function App() {
+  const handleChange = async (markdown: string) => {
+    await fetch("http://localhost:5000/post/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ markdown }),
+    });
+  };
+
   return (
     <MDXEditor
       markdown="hello world [world](https://virtuoso.dev/)"
+      onChange={handleChange}
       plugins={[
         headingsPlugin(),
         markdownShortcutPlugin(),

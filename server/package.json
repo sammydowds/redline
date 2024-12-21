@@ -1,0 +1,17 @@
+{
+  "name": "mdx-editor-in-vite",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start:server": "node dist/index.js",
+    "build:server": "tsc"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.0.2"
+  }
+}

@@ -44,36 +44,43 @@ function App() {
   };
 
   return (
-    <MDXEditor
-      markdown="hello world [world](https://virtuoso.dev/)"
-      onChange={handleChange}
-      plugins={[
-        headingsPlugin(),
-        markdownShortcutPlugin(),
-        tablePlugin(),
-        imagePlugin({
-          imageUploadHandler,
-        }),
-        linkDialogPlugin(),
-        linkPlugin(),
-        listsPlugin(),
-        quotePlugin(),
-        thematicBreakPlugin(),
-        tablePlugin(),
-        toolbarPlugin({
-          toolbarContents: () => (
-            <>
-              <UndoRedo />
-              <BoldItalicUnderlineToggles />
-              <BlockTypeSelect />
-              <CreateLink />
-              <InsertTable />
-              <InsertImage />
-            </>
-          ),
-        }),
-      ]}
-    />
+    <div className="flex flex-col gap-4 items-center">
+      <div className="text-black uppercase line-through text-2xl font-semibold decoration-red-600 decoration-[2px]">
+        Redlines
+      </div>
+      <div className="prose w-[1000px]">
+        <MDXEditor
+          markdown="hello world [world](https://virtuoso.dev/)"
+          onChange={handleChange}
+          plugins={[
+            headingsPlugin(),
+            markdownShortcutPlugin(),
+            tablePlugin(),
+            imagePlugin({
+              imageUploadHandler,
+            }),
+            linkDialogPlugin(),
+            linkPlugin(),
+            listsPlugin(),
+            quotePlugin(),
+            thematicBreakPlugin(),
+            tablePlugin(),
+            toolbarPlugin({
+              toolbarContents: () => (
+                <>
+                  <UndoRedo />
+                  <BoldItalicUnderlineToggles />
+                  <BlockTypeSelect />
+                  <CreateLink />
+                  <InsertTable />
+                  <InsertImage />
+                </>
+              ),
+            }),
+          ]}
+        />
+      </div>
+    </div>
   );
 }
 

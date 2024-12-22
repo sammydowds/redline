@@ -77,8 +77,8 @@ function App() {
 
   return (
     <div className="flex flex-col gap-4 p-2 items-center relative">
-      {syncing ? <div className="absolute top-2 right-4">Syncing</div> : null}
-      {error ? <div className="absolute top-2 right-4">{error}</div> : null}
+      {syncing ? <div className="absolute top-2 right-4 text-xs">Syncing</div> : null}
+      {error ? <div className="absolute top-2 right-4 text-xs text-red-600">{error}</div> : null}
       <div className="text-black uppercase line-through text-2xl font-semibold decoration-red-600 decoration-[2px]">
         Redlines
       </div>

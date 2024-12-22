@@ -11,8 +11,9 @@ app.use(cors())
 
 app.post("/post/update", (req, res) => {
   const markdown = req.body.markdown;
-  const date = new Date();
-  const filePath = path.join(__dirname, "../posts", `post-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}.md`);
+  const firstHeadingMatch = markdown.match(/^(#+)\s+(.*)$/m);
+  const heading = firstHeadingMatch ? firstHeadingMatch[2].replace(/[^a-zA-Z0-9]/g, '_') : 'untitled';
+  const filePath = path.join(__dirname, "../posts", `${heading.toLowerCase()}.md`);
   
   fs.writeFile(filePath, markdown, (err) => {
     if (err) {

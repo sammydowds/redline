@@ -14,7 +14,7 @@ app.post("/post/update", (req, res) => {
   const markdown = req.body.markdown;
   const data = matter(markdown) as any;
   const heading = data?.attributes?.title ? data?.attributes.title.replace(/[^a-zA-Z0-9]/g, '_') : 'untitled';
-  const filePath = path.join(__dirname, "../posts", `${heading.toLowerCase()}.md`);
+  const filePath = path.join(__dirname, "../../posts", `${heading.toLowerCase()}.md`);
   
   fs.writeFile(filePath, markdown, (err) => {
     if (err) {

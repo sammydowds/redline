@@ -37,11 +37,6 @@ const save = async (markdown: string) => {
   });
 };
 
-function getWordCount(markdown: string) {
-  const words = markdown.trim().split(/\s+/);
-  return words.filter((word) => word.length > 0 && !word.includes("#")).length; // Filter out empty strings and return count
-}
-
 function App() {
   const [post, setPost] = useState<PostData>();
   const [showPreview, setShowPreview] = useState(false);
@@ -108,19 +103,16 @@ function App() {
           <div className="flex w-full justify-between">
             <div className="flex items-center gap-[4px]">
               <Logo />
-              <div className="flex items-center text-xs">
-                {getWordCount(markdown)} words
-              </div>
             </div>
             <button onClick={handleClickPreview}>
               {showPreview ? (
                 <div className="flex items-center gap-[4px] text-stone-500 text-xs">
-                  Hide
+                  Hide Preview
                   <EyeOff size={16} />
                 </div>
               ) : (
                 <div className="flex items-center gap-[4px] text-stone-500 text-xs">
-                  Show
+                  Show Preview
                   <Eye size={16} />
                 </div>
               )}

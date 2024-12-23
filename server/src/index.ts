@@ -37,7 +37,7 @@ app.post("/post/update", (req, res) => {
 
 app.post('/photo/upload', upload.single('image'), (req, res) => {
   // @ts-ignore
-  res.status(200).json({ message: 'File uploaded successfully!', url: req.file.path });
+  res.status(200).json({ message: 'File uploaded successfully!', url: req.file.filename});
 });
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

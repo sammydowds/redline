@@ -18,12 +18,14 @@ import {
   InsertTable,
   frontmatterPlugin,
   InsertFrontmatter,
+  Button,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 import { useState, useEffect } from "react";
 import { Post, PostData } from "./components/Post";
 import matter from "front-matter";
 import { Logo } from "./components/Logo";
+import { Eye, EyeOff } from "lucide-react";
 
 const save = async (markdown: string) => {
   await fetch("http://localhost:5000/post/update", {
@@ -35,8 +37,14 @@ const save = async (markdown: string) => {
   });
 };
 
+function getWordCount(markdown: string) {
+  const words = markdown.trim().split(/\s+/);
+  return words.filter((word) => word.length > 0 && !word.includes("#")).length; // Filter out empty strings and return count
+}
+
 function App() {
   const [post, setPost] = useState<PostData>();
+  const [showPreview, setShowPreview] = useState(false);
   const [markdown, setMarkdown] = useState<string>("");
   const [syncing, setSyncing] = useState(false);
   const [error, setError] = useState<string | undefined>();
@@ -57,6 +65,10 @@ function App() {
   const handleChange = (newMarkdown: string) => {
     setMarkdown(newMarkdown);
     setPost(matter(newMarkdown));
+  };
+
+  const handleClickPreview = () => {
+    setShowPreview((prevShowPreview) => !prevShowPreview);
   };
 
   useEffect(() => {
@@ -91,8 +103,29 @@ function App() {
           {error}
         </div>
       ) : null}
-      <div className="w-full flex gap-[4px] justify-center">
+      <div className="w-full flex gap-[18px] justify-center">
         <div className="flex flex-col h-full w-[600px]">
+          <div className="flex w-full justify-between">
+            <div className="flex items-center gap-[4px]">
+              <Logo />
+              <div className="flex items-center text-xs">
+                {getWordCount(markdown)} words
+              </div>
+            </div>
+            <button onClick={handleClickPreview}>
+              {showPreview ? (
+                <div className="flex items-center gap-[4px] text-stone-500 text-xs">
+                  Hide
+                  <EyeOff size={16} />
+                </div>
+              ) : (
+                <div className="flex items-center gap-[4px] text-stone-500 text-xs">
+                  Show
+                  <Eye size={16} />
+                </div>
+              )}
+            </button>
+          </div>
           <div className="prose">
             <MDXEditor
               markdown="hello world [world](https://virtuoso.dev/)"
@@ -127,9 +160,11 @@ function App() {
             />
           </div>
         </div>
-        <div className="">
-          <Post data={post} />
-        </div>
+        {showPreview ? (
+          <div className="">
+            <Post data={post} />
+          </div>
+        ) : null}
       </div>
     </div>
   );

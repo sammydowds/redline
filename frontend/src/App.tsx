@@ -18,7 +18,6 @@ import {
   InsertTable,
   frontmatterPlugin,
   InsertFrontmatter,
-  Button,
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 import { useState, useEffect } from "react";

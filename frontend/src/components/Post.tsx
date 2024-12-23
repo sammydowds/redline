@@ -20,7 +20,7 @@ export const Post = ({ data }: PostProps) => {
         <Logo />
       </div>
       {data?.attributes.title ? (
-        <div className="text-2xl tracking-tighter text-stone-800 font-semibold mt-4">
+        <div className="text-3xl tracking-tighter text-stone-800 font-semibold mt-4">
           {data?.attributes.title}
         </div>
       ) : null}

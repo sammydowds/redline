@@ -2,6 +2,7 @@ import { FrontMatterResult } from "front-matter";
 import Markdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Logo } from "./Logo";
+import rehypeRaw from "rehype-raw";
 
 const CustomComponents: Partial<Components> | null = {};
 
@@ -29,6 +30,7 @@ export const Post = ({ data }: PostProps) => {
           className="py-2 px-4"
           components={CustomComponents}
           remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw]}
         >
           {data?.body}
         </Markdown>

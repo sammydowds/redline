@@ -23,6 +23,7 @@ import "@mdxeditor/editor/style.css";
 import { useState, useEffect } from "react";
 import { Post, PostData } from "./components/Post";
 import matter from "front-matter";
+import { Logo } from "./components/Logo";
 
 const save = async (markdown: string) => {
   await fetch("http://localhost:5000/post/update", {
@@ -62,6 +63,11 @@ function App() {
     const handler = setTimeout(async () => {
       setSyncing(true);
       setError(undefined);
+      if (!post?.attributes.title) {
+        console.log("Skipping save, due to no title");
+        setSyncing(false);
+        return;
+      }
       try {
         await save(markdown);
       } catch {
@@ -77,11 +83,14 @@ function App() {
 
   return (
     <div className="flex flex-col gap-4 p-2 items-center relative">
-      {syncing ? <div className="absolute top-2 right-4 text-xs">Syncing</div> : null}
-      {error ? <div className="absolute top-2 right-4 text-xs text-red-600">{error}</div> : null}
-      <div className="text-black uppercase line-through text-2xl font-semibold decoration-red-600 decoration-[2px]">
-        Redlines
-      </div>
+      {syncing ? (
+        <div className="absolute top-2 right-4 text-xs">Syncing</div>
+      ) : null}
+      {error ? (
+        <div className="absolute top-2 right-4 text-xs text-red-600">
+          {error}
+        </div>
+      ) : null}
       <div className="w-full flex gap-[4px] justify-center">
         <div className="flex flex-col h-full w-[600px]">
           <div className="prose">
@@ -118,7 +127,7 @@ function App() {
             />
           </div>
         </div>
-        <div className="h-full border-[1px] p-2 shadow min-h-[800px] w-[600px] prose">
+        <div className="">
           <Post data={post} />
         </div>
       </div>

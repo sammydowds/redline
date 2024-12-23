@@ -3,9 +3,20 @@ import cors from "cors";
 import fs from "fs";
 import path from "path";
 import matter from "front-matter";
+const multer = require('multer')
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const storage = multer.diskStorage({
+  destination: (req: Request, file: File, cb: any) => {
+    cb(null, '../posts/photos/'); 
+  },
+  filename: (req: Request, file: any, cb: any) => {
+    cb(null, file.originalname); 
+  },
+});
+
+const upload = multer({ storage: storage });
 
 app.use(express.json());
 app.use(cors())
@@ -24,6 +35,10 @@ app.post("/post/update", (req, res) => {
   });
 });
 
+app.post('/photo/upload', upload.single('image'), (req, res) => {
+  // @ts-ignore
+  res.status(200).json({ message: 'File uploaded successfully!', url: req.file.path });
+});
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

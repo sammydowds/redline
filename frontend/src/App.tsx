@@ -46,9 +46,7 @@ function App() {
   async function imageUploadHandler(image: File) {
     const formData = new FormData();
     formData.append("image", image);
-    // send the file to your server and return
-    // the URL of the uploaded image in the response
-    const response = await fetch("/post/new", {
+    const response = await fetch("http://localhost:5000/photo/upload", {
       method: "POST",
       body: formData,
     });

@@ -10,9 +10,13 @@ export const EditorHome = () => {
     <div className="flex flex-col items-center justify-center">
       {data?.posts?.map((post) => {
         return (
-          <div>
-            <h2>{post.attributes.title}</h2>
-            <Link to={`/edit/${post.fileName}`}>{post.attributes.title}</Link>
+          <div className="flex items-center">
+            <Link
+              className="underline text-2xl text-stone-600"
+              to={`/edit/${post.fileName}`}
+            >
+              {post.attributes.title}
+            </Link>
           </div>
         );
       })}

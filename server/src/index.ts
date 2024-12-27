@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const storage = multer.diskStorage({
   destination: (req: Request, file: File, cb: any) => {
-    cb(null, '../posts/photos/'); 
+    cb(null, 'posts/photos/'); 
   },
   filename: (req: Request, file: any, cb: any) => {
     cb(null, file.originalname); 
@@ -25,7 +25,8 @@ app.post("/post/update", (req, res) => {
   const markdown = req.body.markdown;
   const data = matter(markdown) as any;
   const heading = data?.attributes?.title ? data?.attributes.title.replace(/[^a-zA-Z0-9]/g, '_') : 'untitled';
-  const filePath = path.join(__dirname, "../../posts", `${heading.toLowerCase()}.md`);
+  const filePath = path.join(__dirname, "../posts/", `${heading.toLowerCase()}.md`);
+  console.log(filePath)
   
   fs.writeFile(filePath, markdown, (err) => {
     if (err) {

@@ -5,11 +5,11 @@ import { Logo } from "./Logo";
 import rehypeRaw from "rehype-raw";
 
 const CustomComponents: Partial<Components> | null = {
-    img: ({ node, ...props }) => (
-        <div className="flex justify-center">
-          <img {...props} className="max-w-full h-auto rounded-[2px]" />
-        </div>
-      ),
+  img: ({ node, ...props }) => (
+    <div className="flex justify-center">
+      <img {...props} className="max-w-full h-auto rounded-[2px]" />
+    </div>
+  ),
 };
 
 interface PostMetaDataObj {

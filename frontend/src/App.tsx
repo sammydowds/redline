@@ -7,6 +7,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/edit" element={<Editor />} />
+        <Route path="/edit/:fileName" element={<Editor />} />
         <Route path="/" element={<EditorHome />} />
       </Routes>
     </BrowserRouter>

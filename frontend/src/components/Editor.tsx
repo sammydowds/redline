@@ -25,6 +25,8 @@ import { Post, PostData } from "../components/Post";
 import matter from "front-matter";
 import { Logo } from "../components/Logo";
 import { Eye, EyeOff } from "lucide-react";
+import { useParams } from "react-router";
+import { usePost } from "../hooks/usePost";
 
 const save = async (markdown: string) => {
   await fetch("http://localhost:5000/post/update", {
@@ -42,6 +44,10 @@ export function Editor() {
   const [markdown, setMarkdown] = useState<string>("");
   const [syncing, setSyncing] = useState(false);
   const [error, setError] = useState<string | undefined>();
+  const { fileName } = useParams<{ fileName: string }>();
+  const { data, isPending: loadingPost } = usePost(fileName ?? "", {
+    enabled: !!fileName,
+  });
 
   async function imageUploadHandler(image: File) {
     const formData = new FormData();
@@ -116,37 +122,41 @@ export function Editor() {
             </button>
           </div>
           <div className="prose">
-            <MDXEditor
-              markdown="hello world [world](https://virtuoso.dev/)"
-              onChange={handleChange}
-              plugins={[
-                headingsPlugin(),
-                markdownShortcutPlugin(),
-                imagePlugin({
-                  imageUploadHandler,
-                }),
-                frontmatterPlugin(),
-                linkDialogPlugin(),
-                linkPlugin(),
-                listsPlugin(),
-                quotePlugin(),
-                thematicBreakPlugin(),
-                tablePlugin(),
-                toolbarPlugin({
-                  toolbarContents: () => (
-                    <>
-                      <UndoRedo />
-                      <BoldItalicUnderlineToggles />
-                      <BlockTypeSelect />
-                      <CreateLink />
-                      <InsertTable />
-                      <InsertImage />
-                      <InsertFrontmatter />
-                    </>
-                  ),
-                }),
-              ]}
-            />
+            {loadingPost ? (
+              <div>Loading...</div>
+            ) : (
+              <MDXEditor
+                markdown={data?.data.raw ?? ""}
+                onChange={handleChange}
+                plugins={[
+                  headingsPlugin(),
+                  markdownShortcutPlugin(),
+                  imagePlugin({
+                    imageUploadHandler,
+                  }),
+                  frontmatterPlugin(),
+                  linkDialogPlugin(),
+                  linkPlugin(),
+                  listsPlugin(),
+                  quotePlugin(),
+                  thematicBreakPlugin(),
+                  tablePlugin(),
+                  toolbarPlugin({
+                    toolbarContents: () => (
+                      <>
+                        <UndoRedo />
+                        <BoldItalicUnderlineToggles />
+                        <BlockTypeSelect />
+                        <CreateLink />
+                        <InsertTable />
+                        <InsertImage />
+                        <InsertFrontmatter />
+                      </>
+                    ),
+                  }),
+                ]}
+              />
+            )}
           </div>
         </div>
         {showPreview ? (

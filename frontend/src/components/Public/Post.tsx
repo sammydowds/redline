@@ -1,8 +1,8 @@
-import { FrontMatterResult } from "front-matter";
 import Markdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Logo } from "./Logo";
+import { Logo } from "../Logo";
 import rehypeRaw from "rehype-raw";
+import { PostData } from "../../types";
 
 const CustomComponents: Partial<Components> | null = {
   img: ({ node, ...props }) => (
@@ -11,11 +11,6 @@ const CustomComponents: Partial<Components> | null = {
     </div>
   ),
 };
-
-interface PostMetaDataObj {
-  title: string;
-}
-export type PostData = FrontMatterResult<PostMetaDataObj>;
 
 interface PostProps {
   data?: PostData;

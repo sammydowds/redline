@@ -5,6 +5,7 @@ import path from "path";
 import matter from "front-matter";
 import assert from "assert";
 import 'dotenv/config'
+import { title } from "process";
 const multer = require('multer')
 
 
@@ -72,8 +73,7 @@ app.get("/posts", async (req, res) => {
           const filePath = path.join(postsDirectory, fileName);
           const data = await fs.promises.readFile(filePath, "utf8");
           const parsedData = matter(data);
-          const { attributes } = parsedData;
-          return { attributes, fileName: fileName.split(".")[0] };
+          return { ...parsedData, fileName: fileName.split(".")[0] };
         })
     );
 

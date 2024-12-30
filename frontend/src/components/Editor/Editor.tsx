@@ -21,15 +21,18 @@ import {
 } from "@mdxeditor/editor";
 import "@mdxeditor/editor/style.css";
 import { useState, useEffect } from "react";
-import { Post, PostData } from "../components/Post";
+import { Post } from "../Public/Post";
 import matter from "front-matter";
-import { Logo } from "../components/Logo";
+import { Logo } from "../Logo";
 import { Eye, EyeOff } from "lucide-react";
 import { useParams } from "react-router";
-import { usePost } from "../hooks/usePost";
+import { usePost } from "../../hooks/usePost";
+import { PostData } from "@/types";
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "";
 
 const save = async (markdown: string) => {
-  await fetch("http://localhost:5000/post/update", {
+  await fetch(`${BACKEND_URL}/post/update`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -52,7 +55,7 @@ export function Editor() {
   async function imageUploadHandler(image: File) {
     const formData = new FormData();
     formData.append("image", image);
-    const response = await fetch("http://localhost:5000/photo/upload", {
+    const response = await fetch(`${BACKEND_URL}/photo/upload`, {
       method: "POST",
       body: formData,
     });

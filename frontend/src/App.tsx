@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import { Editor } from "./components/Editor";
-import { EditorHome } from "./components/EditorHome";
+import { Editor } from "./components/Editor/Editor";
+import { EditorHome } from "./components/Editor/EditorHome";
 
 function App() {
   return (

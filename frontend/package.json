@@ -6,12 +6,12 @@
   "scripts": {
     "dev": "vite",
     "copy:photos": "cp -r ../posts/photos/ public/",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier . --write",
-    "start:server": "node dist/server.ts",
-    "build:server": "tsc -p tsconfig.server.json server/index.ts --outDir dist"
+    "build:renderer": "vite build --config vite.config.renderer.ts",
+    "render": "node dist/render-posts.js"
   },
   "dependencies": {
     "@mdxeditor/editor": "^2.0.0",
@@ -40,6 +40,7 @@
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.20",
+    "dotenv": "^16.4.7",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",

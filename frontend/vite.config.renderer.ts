@@ -28,6 +28,7 @@ export default defineConfig({
         "react-markdown",
       ],
     },
+    cssMinify: true,
   },
   resolve: {
     alias: {

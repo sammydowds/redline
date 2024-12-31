@@ -3,6 +3,7 @@ import remarkGfm from "remark-gfm";
 import { Logo } from "../Logo";
 import rehypeRaw from "rehype-raw";
 import { PostData } from "../../types";
+import "../../index.css";
 
 const CustomComponents: Partial<Components> | null = {
   img: ({ node, ...props }) => (
@@ -17,7 +18,7 @@ interface PostProps {
 }
 export const Post = ({ data }: PostProps) => {
   return (
-    <div className="h-full border-[1px] shadow min-h-[800px] w-[600px] p-4 flex flex-col items-center">
+    <div className="h-full w-full p-4 flex flex-col items-center">
       <div className="w-full flex justify-end items-center">
         <Logo />
       </div>

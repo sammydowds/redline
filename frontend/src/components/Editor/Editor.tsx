@@ -163,7 +163,7 @@ export function Editor() {
           </div>
         </div>
         {showPreview ? (
-          <div className="">
+          <div className="h-full border-[1px] shadow min-h-[800px] w-[600px] p-4 flex flex-col items-center">
             <Post data={post} />
           </div>
         ) : null}

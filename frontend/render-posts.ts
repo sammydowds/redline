@@ -4,10 +4,11 @@ import * as fs from "fs";
 import * as path from "path";
 import { createElement } from "react";
 import * as ReactDOMServer from "react-dom/server";
-import * as dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import { minify } from "html-minifier";
 
-// Load environment variables from .env file
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 interface RenderOptions {
   outputPath?: string;
@@ -24,36 +25,46 @@ async function renderPost(
       createElement(Post, { data }),
     );
 
-    const templateHtml = `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Rendered Post</title>
-      </head>
-      <body>
-        <div id="root"></div>
-      </body>
-      </html>
-    `;
+    let templateHtml = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Rendered Post</title>
+      <!-- INLINE_STYLES -->
+    </head>
+    <body>
+      <!-- BODY -->
+    </body>
+    </html>
+  `;
 
-    const finalHtml = templateHtml.replace(
-      '<div id="root"></div>',
-      `<div id="root">${componentHtml}</div>`,
-    );
-
-    const outputDir = path.dirname(outputPath);
     fs.promises
-      .mkdir(outputDir, { recursive: true })
-      .then(() => {
-        return fs.promises.writeFile(outputPath, finalHtml);
-      })
-      .then(() => {
-        console.log(`Post rendered to ${outputPath}`);
+      .readFile(path.join(__dirname, "style.css"), "utf-8")
+      .then((styles) => {
+        // update body and inline styles
+        templateHtml = templateHtml
+          .replace("<!-- BODY -->", `<div id="root">${componentHtml}</div>`)
+          .replace("<!-- INLINE_STYLES -->", `<style>${styles}</style>`);
+
+        const minifiedHtml = minify(templateHtml, { collapseWhitespace: true });
+        const outputDir = path.dirname(outputPath);
+        fs.promises
+          .mkdir(outputDir, { recursive: true })
+          .then(() => {
+            return fs.promises.writeFile(outputPath, minifiedHtml);
+          })
+          .then(() => {
+            console.log(`Post rendered to ${outputPath}`);
+          })
+          .catch((error) => {
+            console.error("Error rendering post:", error);
+            throw error;
+          });
       })
       .catch((error) => {
-        console.error("Error rendering post:", error);
+        console.error("Error reading styles:", error);
         throw error;
       });
   } catch (error) {
@@ -65,12 +76,12 @@ async function renderPost(
 }
 
 if (import.meta.url === "file://" + process.argv[1]) {
-  fetch(`${process.env.VITE_BACKEND_URL}/posts`)
+  fetch(`${import.meta.env.VITE_BACKEND_URL}/posts`)
     .then((response) => response.json())
     .then((posts: PostsResponse) => {
       for (const post of posts.posts) {
         renderPost(post, {
-          outputPath: `dist/${post.fileName}.html`,
+          outputPath: `public/${post.fileName}.html`,
         }).catch(console.error);
       }
     })

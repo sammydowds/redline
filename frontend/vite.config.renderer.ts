@@ -12,6 +12,7 @@ export default defineConfig({
   },
   build: {
     ssr: true,
+    outDir: "renderer",
     lib: {
       entry: path.resolve(__dirname, "render-posts.ts"),
       formats: ["es"],
@@ -29,6 +30,7 @@ export default defineConfig({
       ],
     },
     cssMinify: true,
+    copyPublicDir: false
   },
   resolve: {
     alias: {

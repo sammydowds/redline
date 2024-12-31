@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "format": "prettier . --write",
     "build:renderer": "vite build --config vite.config.renderer.ts",
-    "render": "node dist/render-posts.js"
+    "render": "node renderer/render-posts.js"
   },
   "dependencies": {
     "@mdxeditor/editor": "^2.0.0",

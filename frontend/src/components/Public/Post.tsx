@@ -27,6 +27,19 @@ export const Post = ({ data }: PostProps) => {
           {data?.attributes.title}
         </div>
       ) : null}
+      {
+        data?.attributes.tags ? (
+          <div className="flex items-center gap-[4px] flex-wrap mt-2">
+            {
+              data.attributes.tags.split(",").map(tag => {
+                return (
+                  <div key={tag} className="text-[12px] px-[4px] py-[2px] bg-stone-100">{tag}</div>
+                )
+              })
+            }
+          </div>
+        ) : null 
+      }
       <div className="w-full prose prose-slate">
         <Markdown
           className="py-2 px-4"

@@ -11,6 +11,8 @@ export interface PostResponse {
 
 interface PostMetaDataObj {
   title: string;
+  status?: 'public' | 'draft';
+  tags?: string
 }
 export interface PostData extends FrontMatterResult<PostMetaDataObj> {
   fileName?: string;

@@ -80,9 +80,11 @@ if (import.meta.url === "file://" + process.argv[1]) {
     .then((response) => response.json())
     .then((posts: PostsResponse) => {
       for (const post of posts.posts) {
-        renderPost(post, {
-          outputPath: `public/${post.fileName}.html`,
-        }).catch(console.error);
+        if (post.attributes.status === 'public') {
+          renderPost(post, {
+            outputPath: `public/${post.fileName}.html`,
+          }).catch(console.error);
+        }
       }
     })
     .catch(console.error);

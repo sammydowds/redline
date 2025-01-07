@@ -65,7 +65,7 @@ export function Editor() {
 
   const handleChange = (newMarkdown: string) => {
     setMarkdown(newMarkdown);
-    setPost(matter(newMarkdown));
+    setPost({ ...matter(newMarkdown), fileName });
   };
 
   const handleClickPreview = () => {

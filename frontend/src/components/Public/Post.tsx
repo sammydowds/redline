@@ -4,6 +4,7 @@ import { Logo } from "../Logo";
 import rehypeRaw from "rehype-raw";
 import { PostData } from "../../types";
 import "../../index.css";
+import { AudioPlayer } from "../AudioPlayer";
 
 const CustomComponents: Partial<Components> | null = {
   img: ({ node, ...props }) => (
@@ -27,19 +28,27 @@ export const Post = ({ data }: PostProps) => {
           {data?.attributes.title}
         </div>
       ) : null}
+      <div className="w-full flex flex-col items-center justify-center gap-4">
       {
         data?.attributes.tags ? (
-          <div className="flex items-center gap-[4px] flex-wrap mt-2">
+          <div className="flex items-center justify-center gap-[4px] flex-wrap mt-2 w-full">
             {
               data.attributes.tags.split(",").map(tag => {
                 return (
-                  <div key={tag} className="text-[12px] px-[4px] py-[2px] bg-stone-100">{tag}</div>
+                  <div key={tag} className="text-[12px] px-[6px] bg-stone-100">{tag}</div>
                 )
               })
             }
           </div>
         ) : null 
       }
+      {
+        data?.attributes.tts === 'true' || data?.attributes.recordedAudio === 'true' ? (
+          <AudioPlayer blogFileName={data.fileName} />
+        ) : null
+      }
+      </div>
+
       <div className="w-full prose prose-slate">
         <Markdown
           className="py-2 px-4"

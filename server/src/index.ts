@@ -48,16 +48,16 @@ app.post('/photo/upload', upload.single('image'), (req, res) => {
 });
 
 app.get("/editor/:filename", (req, res) => {
-  const filename = req.params.filename;
-  const filePath = path.join(__dirname, POSTS_TARGET_URL, `${filename}.md`);
+  const fileName = req.params.filename;
+  const filePath = path.join(__dirname, POSTS_TARGET_URL, `${fileName}.md`);
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
       return res.status(404).json({ message: "File not found." });
     }
     
-    const parsedData = matter(data); 
-    res.json({ data: { ...parsedData, raw: data }}); 
+    const parsedData = matter(data);
+    res.json({ data: { ...parsedData, raw: data, fileName }}); 
   });
 });
 

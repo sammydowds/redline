@@ -4,15 +4,16 @@ One of my goals for 2025 is to get better at storytelling. So this editor will h
 
 ## Architecture
 
-This is an app to locally write markdown files in an editor, and then export those to HTML. The editor is built with [MDXEditor](https://mdxeditor.dev/). 
+This is an app to locally write markdown files in an editor, and then export those to HTML. The editor is built with [MDXEditor](https://mdxeditor.dev/).
 
 ### Rendering
 
-Once done editing your files you can export all posts (consumed from the API) into HTML by running the below script: 
+Once done editing your files you can export all posts (consumed from the API) into HTML by running the below script:
+
 ```
 npm run build:renderer && npm run render
 ```
 
-This will build the rendering script and then run that script, outputting each post as an HTML file in `/public`. 
+This will build the rendering script and then run that script, outputting each post as an HTML file in `/public`.
 
-Note: the API must be running when pre-rendering. 
+Note: the API must be running when pre-rendering.

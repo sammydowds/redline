@@ -30,7 +30,7 @@ export default defineConfig({
       ],
     },
     cssMinify: true,
-    copyPublicDir: false
+    copyPublicDir: false,
   },
   resolve: {
     alias: {

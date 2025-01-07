@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 posts
 **/.env
+**/public
 
 # ignore renderer
 renderer

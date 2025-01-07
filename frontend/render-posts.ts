@@ -104,8 +104,6 @@ async function renderPost(
   } catch (error) {
     console.error("Error rendering post:", error);
     throw error;
-  } finally {
-    console.log("Pre-render Complete.");
   }
 }
 

@@ -1,4 +1,4 @@
-# Redlines editor
+# Editor
 
 One of my goals for 2025 is to get better at storytelling. So this editor will help me do that, creating and writing markdown files then publishing to the web. My goal for the blog is to do investigations into things I find frustrating, interesting, or insightful with the goal of telling a good story.
 

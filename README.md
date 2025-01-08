@@ -41,4 +41,4 @@ This will output any blog posts as rendered HTML files in `/public`. To edit the
 5. Add the following attributes to the frontmatter: `title`, `status`:`public`
 5b. (Optional) To create an mp3 via AI of your blog post add `tts`:`true`
 6. Write some text
-7. Open a terminal, and run `npm run render` to output the blog post as HTML
+7. Open a terminal, and run `cd frontend && npm run build:renderer && npm run render` to output the blog post as HTML

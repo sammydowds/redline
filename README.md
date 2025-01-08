@@ -9,6 +9,12 @@ This is a platform to write blog posts locally. When finished, you can convert y
 The backend is built with Express and saves you posts into a folder `/posts`. The API docs can be found at `/server/README.md`. 
 
 To start the backend:
+
+Create `/server/.env` with
+```
+POSTS_TARGET_URL = "../posts/"
+```
+
 ```bash
 cd server && npm install && npm run build:server && npm run start:server
 
@@ -17,6 +23,12 @@ cd server && npm install && npm run build:server && npm run start:server
 ### Frontend
 
 The frontend is built with Vite, React, MDXEditor, and Tailwind CSS.
+
+Create `/frontend/.env` with
+```
+VITE_BACKEND_URL="http://localhost:5000"
+OPENAPI_AI_KEY=<your key>
+```
 
 Start the frontend:
 ```bash
